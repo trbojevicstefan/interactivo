@@ -1,0 +1,35 @@
+/* Dodaci samo za Dron Napad. */
+.logo.gun{
+  background:linear-gradient(90deg,#7ee8ff,#4dffa6 50%,#d0ff4d);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 26px rgba(126,232,255,.4))
+}
+.logo.gun span{-webkit-text-fill-color:var(--ink)}
+body.shooter .btn.primary{background:linear-gradient(90deg,#7ee8ff,#4dffa6);box-shadow:0 10px 34px rgba(126,232,255,.3)}
+body.shooter .move .ico{color:#7ee8ff;text-shadow:0 0 18px rgba(126,232,255,.55);font-size:28px}
+body.shooter .big{color:#7ee8ff;text-shadow:0 0 40px rgba(126,232,255,.5)}
+body.shooter .hu-bar i{background:linear-gradient(90deg,#7ee8ff,#4dffa6)}
+body.shooter .hud-box{border-color:rgba(126,232,255,.22)}
+body.shooter .biome{color:#7ee8ff}
+body.shooter .score{text-shadow:0 0 22px rgba(126,232,255,.6)}
+
+.link{color:var(--neon2);text-decoration:none;border-bottom:1px dotted currentColor}
+.link:hover{color:#fff}
+
+#banner{
+  position:absolute;left:50%;top:24%;transform:translate(-50%,0) scale(.7);
+  font-size:clamp(24px,4.6vw,46px);font-weight:900;letter-spacing:6px;text-align:center;
+  opacity:0;pointer-events:none;z-index:4;white-space:nowrap;
+  color:#7ee8ff;text-shadow:0 0 34px rgba(0,180,255,.75),0 4px 16px rgba(0,0,0,.7)
+}
+#banner.bad{color:#ff6b7a;text-shadow:0 0 34px rgba(255,60,80,.8),0 4px 16px rgba(0,0,0,.7)}
+#banner.show{animation:pop 1.15s ease-out forwards}
+#banner small{display:block;font-size:.42em;letter-spacing:4px;opacity:.85;margin-top:8px;color:#fff}
+@keyframes pop{
+  0%{opacity:0;transform:translate(-50%,10px) scale(.7)}
+  18%{opacity:1;transform:translate(-50%,0) scale(1.06)}
+  30%{transform:translate(-50%,0) scale(1)}
+  78%{opacity:1}
+  100%{opacity:0;transform:translate(-50%,-24px) scale(1)}
+}
+.result div{min-width:88px}

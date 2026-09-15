@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Prođi Kroz Zid — Kinnect Adventure</title>
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/wall.css" />
+</head>
+<body class="wall">
+<div id="stage">
+  <video id="cam" playsinline muted autoplay></video>
+  <canvas id="game"></canvas>
+
+  <div id="hud" class="hidden">
+    <div class="hud-box hud-left">
+      <div id="lives" class="lives"></div>
+      <div id="level" class="biome">ZID 1</div>
+    </div>
+    <div class="hud-box hud-center">
+      <div id="score" class="score">0</div>
+      <div id="poseName" class="combo"></div>
+    </div>
+    <div class="hud-box hud-right">
+      <div class="dist"><span id="best">0</span></div>
+      <div class="speed">najbolje</div>
+    </div>
+  </div>
+
+  <div id="banner"></div>
+
+  <section class="screen" id="screen-intro">
+    <div class="panel">
+      <h1 class="logo brick">PROĐI<span>KROZ ZID</span></h1>
+      <p class="tag">Zid sa rupom u obliku poze juri ka tebi. Namesti telo tako da staneš u rupu.</p>
+
+      <div class="moves">
+        <div class="move"><div class="ico">🧍</div><b>GLEDAJ RUPU</b><span>Rupa je ogledalo — ponovi ono što vidiš</span></div>
+        <div class="move"><div class="ico">👁</div><b>ZID JE PROVIDAN</b><span>Vidiš sebe i kroz zid; što je van rupe — udara</span></div>
+        <div class="move"><div class="ico">📊</div><b>POKLAPANJE</b><span>Traka dole pokazuje koliko te je unutra</span></div>
+        <div class="move"><div class="ico">❤</div><b>3 ŽIVOTA</b><span>Svaki promašeni zid uzima jedan</span></div>
+      </div>
+
+      <p class="fine" style="margin-top:4px;opacity:.7">Izaberi težinu:</p>
+      <div class="btns" style="margin-top:10px">
+        <button class="btn primary" data-diff="1">LAKO</button>
+        <button class="btn primary" data-diff="2">SREDNJE</button>
+        <button class="btn primary" data-diff="3">TEŠKO</button>
+        <button class="btn primary ludo" data-diff="4">LUDO</button>
+      </div>
+      <p class="fine" id="diff-desc">
+        <b>LAKO</b> 4.5 s · 5 poza &nbsp;·&nbsp;
+        <b>SREDNJE</b> 3.8 s · 12 poza &nbsp;·&nbsp;
+        <b>TEŠKO</b> 3 s · 34 poze · rupa se pomera u stranu &nbsp;·&nbsp;
+        <b>LUDO</b> 2.6 s · svih 66 poza · rupa ide na krajeve ekrana<br>
+        Svaki sledeći zid je brži za <b>0.3 s</b> (do najbržeg: 2.2 / 1.8 / 1.4 / 1.1 s).
+      </p>
+
+      <p class="fine">Treba ti prostor da te kamera vidi celog — bar do kolena, a najbolje celog.</p>
+      <p class="fine keys">
+        <a href="index.html" class="link">← trka</a> ·
+        <a href="ninja.html" class="link">🍉 voće ninja</a> ·
+        <a href="shooter.html" class="link">🎯 dron napad</a> ·
+        <a href="dance.html" class="link">✨ plesni izazov</a> ·
+        <kbd>M</kbd> zvuk · <kbd>R</kbd> kalibracija · <kbd>Esc</kbd> meni
+      </p>
+    </div>
+  </section>
+
+  <section class="screen hidden" id="screen-loading">
+    <div class="panel slim">
+      <div class="spinner"></div>
+      <h2 id="load-title">UČITAVAM...</h2>
+      <p class="tag" id="load-msg">Pripremam kameru</p>
+    </div>
+  </section>
+
+  <section class="screen hidden transparent" id="screen-calib">
+    <div class="panel slim">
+      <h2>KALIBRACIJA</h2>
+      <p class="tag">Stani uspravno, ruke malo od tela, tako da te se vidi bar do kolena. Miruj.</p>
+      <div class="calib-bar"><i id="calib-fill"></i></div>
+      <div class="big" id="calib-count">3</div>
+      <p class="fine" id="calib-hint">Tražim telo...</p>
+    </div>
+  </section>
+
+  <section class="screen hidden" id="screen-over">
+    <div class="panel">
+      <h2 class="over">ZID TE JE POKOSIO</h2>
+      <div class="result">
+        <div><b id="r-score">0</b><span>rezultat</span></div>
+        <div><b id="r-walls">0</b><span>prošlih zidova</span></div>
+        <div><b id="r-perfect">0</b><span>savršenih</span></div>
+        <div><b id="r-best">0</b><span>najbolje</span></div>
+      </div>
+      <div class="handsup" id="handsup">
+        <div class="hu-bar"><i id="hu-fill"></i></div>
+        <span>Podigni obe ruke iznad glave da igraš ponovo</span>
+      </div>
+      <div class="btns">
+        <button id="btn-again" class="btn primary">IGRAJ PONOVO</button>
+        <button id="btn-menu" class="btn ghost">Meni</button>
+      </div>
+    </div>
+  </section>
+
+  <div id="status"></div>
+  <div id="toast"></div>
+</div>
+<script type="module" src="js/wall.js"></script>
+</body>
+</html>

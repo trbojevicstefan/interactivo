@@ -1,0 +1,36 @@
+/* Dodaci samo za Voće Ninja — ne dira stilove trke. */
+.logo.fruit{
+  background:linear-gradient(90deg,#ffd54f,#ff7043 45%,#ff4d6d);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 26px rgba(255,112,67,.4))
+}
+.logo.fruit span{-webkit-text-fill-color:var(--ink)}
+body.ninja .btn.primary{background:linear-gradient(90deg,#ffd54f,#ff7043);box-shadow:0 10px 34px rgba(255,112,67,.3);color:#2a0d02}
+body.ninja .btn.primary:hover{box-shadow:0 16px 44px rgba(255,112,67,.45)}
+body.ninja .btn.ghost:hover{border-color:#ffd54f;color:#ffd54f}
+body.ninja .move .ico{color:#ffd54f;text-shadow:0 0 18px rgba(255,213,79,.5);font-size:30px}
+body.ninja .big{color:#ffd54f;text-shadow:0 0 40px rgba(255,213,79,.5)}
+body.ninja .calib-bar i,body.ninja .hu-bar i{background:linear-gradient(90deg,#ffd54f,#ff7043)}
+body.ninja .score{text-shadow:0 0 22px rgba(255,213,79,.6)}
+body.ninja .hud-box{border-color:rgba(255,213,79,.2)}
+body.ninja .biome{color:#ffd54f}
+
+.link{color:var(--neon2);text-decoration:none;border-bottom:1px dotted currentColor}
+.link:hover{color:#fff}
+
+#banner{
+  position:absolute;left:50%;top:26%;transform:translate(-50%,0) scale(.7);
+  font-size:clamp(26px,5vw,52px);font-weight:900;letter-spacing:6px;text-align:center;
+  opacity:0;pointer-events:none;z-index:4;white-space:nowrap;
+  color:#ffd54f;text-shadow:0 0 34px rgba(255,140,0,.8),0 4px 16px rgba(0,0,0,.7)
+}
+#banner.show{animation:pop 1.15s ease-out forwards}
+#banner small{display:block;font-size:.4em;letter-spacing:4px;opacity:.85;margin-top:8px;color:#fff}
+@keyframes pop{
+  0%{opacity:0;transform:translate(-50%,10px) scale(.7)}
+  18%{opacity:1;transform:translate(-50%,0) scale(1.06)}
+  30%{transform:translate(-50%,0) scale(1)}
+  78%{opacity:1}
+  100%{opacity:0;transform:translate(-50%,-26px) scale(1)}
+}
+.result div{min-width:88px}

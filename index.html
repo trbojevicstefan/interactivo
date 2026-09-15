@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Kinnect Adventure</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div id="stage">
+  <video id="cam" playsinline muted autoplay></video>
+  <canvas id="game"></canvas>
+
+  <!-- HUD -->
+  <div id="hud" class="hidden">
+    <div class="hud-box hud-left">
+      <div id="lives" class="lives"></div>
+      <div id="biome" class="biome">ŠUMA</div>
+    </div>
+    <div class="hud-box hud-center">
+      <div id="score" class="score">0</div>
+      <div id="combo" class="combo"></div>
+    </div>
+    <div class="hud-box hud-right">
+      <div class="dist"><span id="dist">0</span><small>m</small></div>
+      <div id="speedTag" class="speed">1.0x</div>
+    </div>
+  </div>
+
+  <!-- POKAZIVAC STANJA TELA -->
+  <div id="cues" class="hidden">
+    <div class="cue" id="cue-jump">SKOK</div>
+    <div class="cue" id="cue-crouch">ČUČANJ</div>
+  </div>
+
+  <!-- EKRANI -->
+  <section class="screen" id="screen-intro">
+    <div class="panel">
+      <h1 class="logo">KINNECT<span>ADVENTURE</span></h1>
+      <p class="tag">Ti si džojstik. Stani ispred kamere i kreni.</p>
+
+      <div class="moves">
+        <div class="move"><div class="ico">⤒</div><b>SKOK</b><span>Skoči na mesto da preskočiš prepreku</span></div>
+        <div class="move"><div class="ico">⤓</div><b>ČUČANJ</b><span>Čučni ili se sagni ispod grede</span></div>
+        <div class="move"><div class="ico">⇄</div><b>KORAK</b><span>Zakorači levo/desno da izbegneš zid</span></div>
+        <div class="move"><div class="ico">✋</div><b>RUKE</b><span>Hvataj energetske kugle rukama</span></div>
+      </div>
+
+      <div class="btns">
+        <button id="btn-camera" class="btn primary">UKLJUČI KAMERU I IGRAJ</button>
+        <button id="btn-keys" class="btn ghost">Igraj tastaturom (bez kamere)</button>
+      </div>
+
+      <div class="btns" style="margin-top:12px">
+        <a href="ninja.html" class="btn ghost" style="display:inline-block;text-decoration:none">🍉 VOĆE NINJA</a>
+        <a href="shooter.html" class="btn ghost" style="display:inline-block;text-decoration:none">🎯 DRON NAPAD</a>
+        <a href="wall.html" class="btn ghost" style="display:inline-block;text-decoration:none">🧍 PROĐI KROZ ZID</a>
+        <a href="dance.html" class="btn ghost" style="display:inline-block;text-decoration:none">✨ PLESNI IZAZOV</a>
+      </div>
+
+      <p class="fine" id="intro-note">
+        Kamera se obrađuje isključivo lokalno u tvom pregledaču — ništa se ne šalje na internet.
+        Prvo pokretanje skida model za prepoznavanje tela (~5 MB).
+      </p>
+      <p class="fine keys">Tasteri: <kbd>←</kbd><kbd>→</kbd> kretanje · <kbd>Space</kbd> skok · <kbd>↓</kbd> čučanj · <kbd>R</kbd> kalibracija · <kbd>M</kbd> zvuk · <kbd>B</kbd> debug</p>
+    </div>
+  </section>
+
+  <section class="screen hidden" id="screen-loading">
+    <div class="panel slim">
+      <div class="spinner"></div>
+      <h2 id="load-title">UČITAVAM...</h2>
+      <p class="tag" id="load-msg">Pripremam kameru</p>
+    </div>
+  </section>
+
+  <section class="screen hidden transparent" id="screen-calib">
+    <div class="panel slim">
+      <h2>KALIBRACIJA</h2>
+      <p class="tag">Stani 2–3 metra od kamere, uspravno, tako da te se vidi bar do kolena. Miruj.</p>
+      <div class="calib-bar"><i id="calib-fill"></i></div>
+      <div class="big" id="calib-count">3</div>
+      <p class="fine" id="calib-hint">Tražim telo...</p>
+      <button id="btn-calib-keys" class="btn ghost hidden" style="margin-top:16px">Ne prepoznaje me — igraj tastaturom</button>
+    </div>
+  </section>
+
+  <section class="screen hidden transparent" id="screen-pause">
+    <div class="panel slim">
+      <h2>GDE SI?</h2>
+      <p class="tag">Vrati se ispred kamere da nastaviš.</p>
+    </div>
+  </section>
+
+  <section class="screen hidden" id="screen-over">
+    <div class="panel">
+      <h2 class="over">KRAJ IGRE</h2>
+      <div class="result">
+        <div><b id="r-score">0</b><span>rezultat</span></div>
+        <div><b id="r-dist">0 m</b><span>pređeno</span></div>
+        <div><b id="r-best">0</b><span>najbolje</span></div>
+      </div>
+      <div class="handsup" id="handsup">
+        <div class="hu-bar"><i id="hu-fill"></i></div>
+        <span>Podigni obe ruke iznad glave da igraš ponovo</span>
+      </div>
+      <div class="btns">
+        <button id="btn-again" class="btn primary">IGRAJ PONOVO</button>
+        <button id="btn-menu" class="btn ghost">Meni</button>
+      </div>
+    </div>
+  </section>
+
+  <div id="status"></div>
+  <div id="toast"></div>
+</div>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "kinnect-adventure",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Avantura sa kamerom - skaces, cucis i izbegavas prepreke, a vidis sebe u igri.",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

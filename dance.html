@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Plesni Izazov — Kinnect Adventure</title>
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/dance.css" />
+</head>
+<body class="dance">
+<div id="stage">
+  <video id="cam" playsinline muted autoplay></video>
+  <canvas id="game"></canvas>
+
+  <div id="hud" class="hidden">
+    <div class="hud-box hud-left">
+      <div id="stars" class="stars">☆☆☆☆☆</div>
+      <div id="moveNo" class="biome">POKRET 1 / 32</div>
+    </div>
+    <div class="hud-box hud-center">
+      <div id="score" class="score">0</div>
+      <div id="combo" class="combo"></div>
+    </div>
+    <div class="hud-box hud-right">
+      <div class="dist"><span id="best">0</span></div>
+      <div class="speed">najbolje</div>
+    </div>
+  </div>
+
+  <div id="banner"></div>
+
+  <section class="screen" id="screen-intro">
+    <div class="panel">
+      <h1 class="logo glam">PLESNI<span>IZAZOV</span></h1>
+      <p class="tag">Ponovi pokret koji se pojavi preko tebe — u ritmu muzike. Nema gubljenja života, samo skupljaš zvezdice.</p>
+
+      <div class="moves">
+        <div class="move"><div class="ico">✨</div><b>SENKA</b><span>Beli obris pokazuje pokret — uklopi se u njega</span></div>
+        <div class="move"><div class="ico">⏱</div><b>RITAM</b><span>Krug se steže; kad se zatvori, meri se poza</span></div>
+        <div class="move"><div class="ico">🎀</div><b>TRAKE</b><span>Rukama ostavljaš svetleće trake u vazduhu</span></div>
+        <div class="move"><div class="ico">⭐</div><b>ZVEZDICE</b><span>Na kraju pesme dobijaš ocenu od 1 do 5</span></div>
+      </div>
+
+      <p class="fine" style="margin-top:4px;opacity:.75">Izaberi tempo:</p>
+      <div class="btns" style="margin-top:10px">
+        <button class="btn primary" data-mode="1">LAGANO</button>
+        <button class="btn primary" data-mode="2">SREDNJE</button>
+        <button class="btn primary" data-mode="3">BRZO</button>
+        <button class="btn primary endless" data-mode="4">BEZ KRAJA</button>
+      </div>
+      <p class="fine" id="mode-desc">
+        <b>LAGANO</b> pokret na 4 otkucaja (~2.3 s) &nbsp;·&nbsp;
+        <b>SREDNJE</b> na 3 (~1.7 s) &nbsp;·&nbsp;
+        <b>BRZO</b> na 2 (~1.1 s) &nbsp;·&nbsp;
+        <b>BEZ KRAJA</b> počinje lagano pa se sve više ubrzava
+      </p>
+
+      <p class="fine">Muzika je uživo sintetizovana u pregledaču — nema fajlova ni interneta.</p>
+      <p class="fine keys">
+        <a href="index.html" class="link">← trka</a> ·
+        <a href="ninja.html" class="link">🍉 voće ninja</a> ·
+        <a href="shooter.html" class="link">🎯 dron napad</a> ·
+        <a href="wall.html" class="link">🧍 prođi kroz zid</a> ·
+        <kbd>M</kbd> zvuk · <kbd>Esc</kbd> meni
+      </p>
+    </div>
+  </section>
+
+  <section class="screen hidden" id="screen-loading">
+    <div class="panel slim">
+      <div class="spinner"></div>
+      <h2 id="load-title">UČITAVAM...</h2>
+      <p class="tag" id="load-msg">Pripremam kameru</p>
+    </div>
+  </section>
+
+  <section class="screen hidden transparent" id="screen-calib">
+    <div class="panel slim">
+      <h2>SPREMI SE</h2>
+      <p class="tag">Stani tako da te se vidi bar do kolena, ruke malo od tela.</p>
+      <div class="calib-bar"><i id="calib-fill"></i></div>
+      <div class="big" id="calib-count">3</div>
+      <p class="fine" id="calib-hint">Tražim te...</p>
+    </div>
+  </section>
+
+  <section class="screen hidden" id="screen-over">
+    <div class="panel">
+      <h2 class="win" id="over-title">BRAVO!</h2>
+      <div id="bigStars" class="bigstars">☆☆☆☆☆</div>
+      <div class="result">
+        <div><b id="r-score">0</b><span>poena</span></div>
+        <div><b id="r-perfect">0</b><span>savršenih</span></div>
+        <div><b id="r-combo">0</b><span>najduži niz</span></div>
+        <div><b id="r-best">0</b><span>najbolje</span></div>
+      </div>
+      <div class="handsup" id="handsup">
+        <div class="hu-bar"><i id="hu-fill"></i></div>
+        <span>Podigni obe ruke iznad glave za još jednu rundu</span>
+      </div>
+      <div class="btns">
+        <button id="btn-again" class="btn primary">IGRAJ PONOVO</button>
+        <button id="btn-menu" class="btn ghost">Meni</button>
+      </div>
+    </div>
+  </section>
+
+  <div id="status"></div>
+  <div id="toast"></div>
+</div>
+<script type="module" src="js/dance.js"></script>
+</body>
+</html>

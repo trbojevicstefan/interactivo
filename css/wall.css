@@ -1,0 +1,40 @@
+/* Dodaci samo za "Prođi kroz zid". */
+.logo.brick{
+  background:linear-gradient(90deg,#ffb347,#ff7043 45%,#ff4d6d);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 26px rgba(255,140,66,.4))
+}
+.logo.brick span{-webkit-text-fill-color:var(--ink)}
+body.wall .btn.primary{background:linear-gradient(90deg,#ffd180,#ff8a5b);box-shadow:0 10px 30px rgba(255,138,91,.28);color:#2a0f02;padding:14px 22px}
+body.wall .btn.primary:hover{box-shadow:0 16px 40px rgba(255,138,91,.42)}
+body.wall .move .ico{color:#ffb347;text-shadow:0 0 18px rgba(255,179,71,.5)}
+body.wall .big{color:#ffb347;text-shadow:0 0 40px rgba(255,179,71,.5)}
+body.wall .calib-bar i,body.wall .hu-bar i{background:linear-gradient(90deg,#ffd180,#ff7043)}
+body.wall .hud-box{border-color:rgba(255,179,71,.22)}
+body.wall .biome{color:#ffb347}
+body.wall .score{text-shadow:0 0 22px rgba(255,179,71,.55)}
+body.wall #diff-desc{max-width:560px;margin-left:auto;margin-right:auto;line-height:1.7}
+
+.link{color:var(--neon2);text-decoration:none;border-bottom:1px dotted currentColor}
+.link:hover{color:#fff}
+
+#banner{
+  position:absolute;left:50%;top:22%;transform:translate(-50%,0) scale(.7);
+  font-size:clamp(26px,5.2vw,54px);font-weight:900;letter-spacing:6px;text-align:center;
+  opacity:0;pointer-events:none;z-index:4;white-space:nowrap;
+  color:#4dffa6;text-shadow:0 0 34px rgba(0,255,150,.7),0 4px 16px rgba(0,0,0,.7)
+}
+#banner.bad{color:#ff6b7a;text-shadow:0 0 34px rgba(255,60,80,.8),0 4px 16px rgba(0,0,0,.7)}
+#banner.show{animation:pop 1.2s ease-out forwards}
+#banner small{display:block;font-size:.4em;letter-spacing:4px;opacity:.9;margin-top:8px;color:#fff}
+@keyframes pop{
+  0%{opacity:0;transform:translate(-50%,10px) scale(.7)}
+  16%{opacity:1;transform:translate(-50%,0) scale(1.08)}
+  28%{transform:translate(-50%,0) scale(1)}
+  80%{opacity:1}
+  100%{opacity:0;transform:translate(-50%,-22px) scale(1)}
+}
+.result div{min-width:92px}
+
+body.wall .btn.primary.ludo{background:linear-gradient(90deg,#ff5bd0,#ff4d5e);color:#26000f;box-shadow:0 10px 30px rgba(255,77,94,.35)}
+body.wall .btn.primary.ludo:hover{box-shadow:0 16px 42px rgba(255,77,94,.5)}

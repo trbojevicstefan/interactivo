@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Dron Napad — Kinnect Adventure</title>
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/shooter.css" />
+</head>
+<body class="shooter">
+<div id="stage">
+  <video id="cam" playsinline muted autoplay></video>
+  <canvas id="game"></canvas>
+
+  <div id="hud" class="hidden">
+    <div class="hud-box hud-left">
+      <div id="lives" class="lives"></div>
+      <div id="wave" class="biome">TALAS 1</div>
+    </div>
+    <div class="hud-box hud-center">
+      <div id="score" class="score">0</div>
+      <div id="combo" class="combo"></div>
+    </div>
+    <div class="hud-box hud-right">
+      <div class="dist"><span id="best">0</span></div>
+      <div class="speed">najbolje</div>
+    </div>
+  </div>
+
+  <div id="banner"></div>
+
+  <section class="screen" id="screen-intro">
+    <div class="panel">
+      <h1 class="logo gun">DRON<span>NAPAD</span></h1>
+      <p class="tag">Ruke su ti topovi. Nišani dlanom, obori dronove pre nego što stignu do tebe.</p>
+
+      <div class="moves">
+        <div class="move"><div class="ico">✥</div><b>NIŠAN</b><span>Obe ruke imaju svoj nišan — pomeraj dlan</span></div>
+        <div class="move"><div class="ico">⚡</div><b>PUCAJ</b><span>Kratko trzni rukom napred — to je okidač</span></div>
+        <div class="move"><div class="ico">◎</div><b>ZAKLJUČAJ</b><span>Ili drži nišan na meti dok se krug ne popuni</span></div>
+        <div class="move"><div class="ico">🕊</div><b>NE PUCAJ</b><span>Bele ptice su prijatelji — pogodak košta život</span></div>
+      </div>
+
+      <div class="btns">
+        <button id="btn-camera" class="btn primary">UKLJUČI KAMERU I PUCAJ</button>
+        <button id="btn-mouse" class="btn ghost">Igraj mišem</button>
+      </div>
+
+      <p class="fine">Kamera se obrađuje isključivo lokalno u tvom pregledaču — ništa se ne šalje na internet.</p>
+      <p class="fine keys">
+        <a href="index.html" class="link">← trka</a> ·
+        <a href="ninja.html" class="link">🍉 voće ninja</a> ·
+        <a href="wall.html" class="link">🧍 prođi kroz zid</a> ·
+        <a href="dance.html" class="link">✨ plesni izazov</a> ·
+        <kbd>M</kbd> zvuk · <kbd>Esc</kbd> meni
+      </p>
+    </div>
+  </section>
+
+  <section class="screen hidden" id="screen-loading">
+    <div class="panel slim">
+      <div class="spinner"></div>
+      <h2 id="load-title">UČITAVAM...</h2>
+      <p class="tag" id="load-msg">Pripremam kameru</p>
+    </div>
+  </section>
+
+  <section class="screen hidden transparent" id="screen-ready">
+    <div class="panel slim">
+      <h2>SISTEM SPREMAN</h2>
+      <p class="tag" id="ready-hint">Podigni ruke — vidiš dva nišana.</p>
+      <div class="big" id="ready-count">3</div>
+    </div>
+  </section>
+
+  <section class="screen hidden" id="screen-over">
+    <div class="panel">
+      <h2 class="over">BAZA UNIŠTENA</h2>
+      <div class="result">
+        <div><b id="r-score">0</b><span>rezultat</span></div>
+        <div><b id="r-kills">0</b><span>oboreno</span></div>
+        <div><b id="r-wave">1</b><span>talas</span></div>
+        <div><b id="r-best">0</b><span>najbolje</span></div>
+      </div>
+      <div class="handsup" id="handsup">
+        <div class="hu-bar"><i id="hu-fill"></i></div>
+        <span>Podigni obe ruke iznad glave da igraš ponovo</span>
+      </div>
+      <div class="btns">
+        <button id="btn-again" class="btn primary">IGRAJ PONOVO</button>
+        <button id="btn-menu" class="btn ghost">Meni</button>
+      </div>
+    </div>
+  </section>
+
+  <div id="status"></div>
+  <div id="toast"></div>
+</div>
+<script type="module" src="js/shooter.js"></script>
+</body>
+</html>
