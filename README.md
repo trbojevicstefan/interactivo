@@ -1,5 +1,11 @@
 # Kinnect Adventure — pet igara na pokret
 
+### ▶ Igraj odmah: **https://trbojevicstefan.github.io/interactivo/**
+
+Ne treba instalacija — samo otvori link u Chrome-u ili Edge-u i dozvoli kameru.
+
+---
+
 Igre kao na Kinect-u/Wii-ju, ali u pregledaču. Kamera te prati, **vidiš sebe u igri**,
 a igraš telom i rukama. Sve se obrađuje **lokalno u pregledaču** — slika sa kamere
 ne napušta računar.
@@ -16,6 +22,10 @@ Svaka igra je zasebna stranica sa svojim fajlom u `js/`. Dele samo praćenje tel
 (`js/pose.js`) i zvuk (`js/audio.js`), pa izmena jedne igre ne dira ostale.
 
 ## Pokretanje
+
+Najlakše: otvori **https://trbojevicstefan.github.io/interactivo/**
+
+Lokalno (za razvoj):
 
 ```bash
 node server.js
