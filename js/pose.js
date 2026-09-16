@@ -32,6 +32,8 @@ export class PoseTracker {
     this.fps = 0;
     this._fpsT = 0;
     this._fpsN = 0;
+    this.stalled = false;     // slika stoji (npr. telefon je otkazao)
+    this._moveT = 0;
   }
 
   async startCamera(videoEl) {
@@ -46,6 +48,9 @@ export class PoseTracker {
   async attachStream(videoEl, stream) {
     this.video = videoEl;
     this.stream = stream;
+    this.stalled = false;
+    this._moveT = 0;
+    this._lastSeen = -1;
     videoEl.srcObject = stream;
     await videoEl.play().catch(() => {});
     if (!videoEl.videoWidth) {
@@ -106,6 +111,11 @@ export class PoseTracker {
 
     const v = this.video;
     if (!v || !v.videoWidth || v.readyState < 2) return this.landmarks;
+
+    // Da li slika uopste tece? Zamrznut video znaci da izvor vise ne salje nista.
+    if (v.currentTime !== this._lastSeen) { this._lastSeen = v.currentTime; this._moveT = nowMs; }
+    if (!this._moveT) this._moveT = nowMs;
+    this.stalled = (nowMs - this._moveT) > 2500;
 
     if (this.mode === 'pose' && this.landmarker) {
       if (v.currentTime === this.lastTs) return this.landmarks;

@@ -109,6 +109,11 @@ do najviše 9, a srca se i dalje skupljaju.
 poze — telo treba da uđe u beli obris dok se prsten ne zatvori. Svaka pogođena nosi
 200 poena, a sve četiri +400 i dodatni život.
 
+**Radi i sa kamerom sa telefona** (dugme na početnom ekranu), kao i ostale igre.
+Uz to, v2 prepoznaje kad slika stane — ako telefon otkaže usred igre, ranije bi se
+slika zamrzla a igra nastavila sa poslednjim viđenim položajem tela. Sada se posle
+2.5 s bez nove slike igra pauzira sa porukom da je veza pukla.
+
 **Jasnija slika.** Kad raširiš ruke, u prvoj verziji se kamera videla kroz veliku elipsu
 koja je prekrivala **21.8%** ekrana i zaklanjala prepreke. Sada se vidi samo u obliku
 tela, sa malo širim krugovima oko šaka — **9.9%** ekrana, 2.2 puta manje. Uz to su

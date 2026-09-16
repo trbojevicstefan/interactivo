@@ -211,6 +211,9 @@ function frame(now) {
   let input = analyzer.read(lms, game, now, dt, tracker.motion);
   input = mergeKeys(input, now);
 
+  // Ako je slika stala (telefon otkazao, kamera se ugasila), ne glumi da nas vidi.
+  if (tracker.stalled && inputMode !== 'keys') { input.present = false; input.lost = 99; }
+
   if (state === 'calib') {
     const r = analyzer.calibrate(lms);
     $('calib-fill').style.width = Math.round(r.progress * 100) + '%';
@@ -240,7 +243,18 @@ function frame(now) {
     }
 
   } else if (state === 'pause') {
-    if (input.present || inputMode === 'keys') { show(null); state = 'play'; }
+    const p = $('screen-pause');
+    if (p) {
+      const h2 = p.querySelector('h2'), t = p.querySelector('.tag');
+      if (tracker.stalled) {
+        if (h2) h2.textContent = 'SLIKA JE STALA';
+        if (t) t.textContent = 'Kamera ili telefon je prekinuo vezu. Proveri telefon i pritisni POŠALJI ponovo.';
+      } else {
+        if (h2) h2.textContent = 'GDE SI?';
+        if (t) t.textContent = 'Vrati se ispred kamere da nastaviš.';
+      }
+    }
+    if ((input.present && !tracker.stalled) || inputMode === 'keys') { show(null); state = 'play'; }
 
   } else if (state === 'over') {
     if (inputMode === 'pose') {
