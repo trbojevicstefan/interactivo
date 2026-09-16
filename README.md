@@ -1,4 +1,4 @@
-# Kinnect Adventure — pet igara na pokret
+# Kinnect Adventure — šest igara na pokret
 
 ### ▶ Igraj odmah: **https://trbojevicstefan.github.io/interactivo/**
 
@@ -13,6 +13,7 @@ ne napušta računar.
 | Igra | Fajl | Šta radiš |
 |---|---|---|
 | **Kinnect Adventure** (trka) | `index.html` | Skačeš, čučiš i koračaš u stranu kroz prepreke |
+| **Trka v2** | `adventure2.html` | Ista trka, doterana: više života, bonus oblici, jasnija slika |
 | **Voće Ninja** | `ninja.html` | Sečeš voće rukama, izbegavaš bombe |
 | **Dron Napad** (pucačina) | `shooter.html` | Ruke su nišani — obaraš dronove, ne diraš ptice |
 | **Prođi Kroz Zid** | `wall.html` | Nameštaš telo u pozu isečenu u zidu koji juri ka tebi |
@@ -83,6 +84,35 @@ pritisneš **POŠALJI KAMERU** — i telefon postaje kamera za igru na računaru
 
 Tasteri: `←` `→` kretanje · `Space` skok · `↓` čučanj · `R` ponovna kalibracija ·
 `M` zvuk · `B` debug · `Esc` meni. Postoji i režim bez kamere (tastatura).
+
+## 1b. Trka v2 — doterana verzija
+
+Ista igra kao prva, sa četiri popravke. Prva verzija je ostala netaknuta.
+
+**Čučanj se sada stvarno prepoznaje.** U prvoj verziji se osnova tela polako spuštala
+zajedno sa tobom, pa je plitak ili spor čučanj „iscureo" i nikad nije prešao prag —
+udarao si u gredu iako si čučao. Mereno simulacijom: plitak čučanj (0.06 dužine trupa)
+u v1 nije detektovan nijednom, u v2 se hvata uvek, bez lažnih okidanja pri mirovanju.
+Ispravka: niži prag (0.30 umesto 0.45) + osnova se ne pomera dok si sagnut,
+i duži prozor oprosta pri sudaru (380 ms umesto 260).
+
+**Nema više neprolaznih zidova.** Pre nego što postavi zid, igra proverava da li se iz
+prethodnog slobodnog prolaza uopšte stigne do novog, uz pretpostavku koliko brzo igrač
+realno ide u stranu. Slalom je usporen sa 0.75 s na 1.15 s između zidova.
+Mereno botom kroz 7.5 km: ranije je i brz igrač primao udarce, sada bot koji se kreće
+3 jedinice/s prolazi bez ijednog.
+
+**Više života.** Počinješ sa 5 (umesto 3), dobijaš **novi život na svakih 1000 m**
+do najviše 9, a srca se i dalje skupljaju.
+
+**Bonus deo sa oblicima.** Na svakih 800 m prepreke prestaju i dobijaš četiri zadate
+poze — telo treba da uđe u beli obris dok se prsten ne zatvori. Svaka pogođena nosi
+200 poena, a sve četiri +400 i dodatni život.
+
+**Jasnija slika.** Kad raširiš ruke, u prvoj verziji se kamera videla kroz veliku elipsu
+koja je prekrivala **21.8%** ekrana i zaklanjala prepreke. Sada se vidi samo u obliku
+tela, sa malo širim krugovima oko šaka — **9.9%** ekrana, 2.2 puta manje. Uz to su
+nebo i tlo neprozirniji (0.82 / 0.88 umesto 0.62 / 0.66) pa prepreke jasno iskaču.
 
 ## 2. Voće Ninja
 
@@ -184,6 +214,11 @@ slučajeva, a pogrešan pokret u 1%.
   (podizanje kukova mereno dužinom trupa — pa ne zavisi od udaljenosti od kamere),
   čučanj (spuštanje ramena) i korak u stranu (pomeraj kukova podeljen širinom ramena).
   Ninja i pucačina uzimaju samo pozicije šaka.
+- `js/game2.js` + `js/main2.js` — trka v2. `spawnWall()` bira stranu tek kad proveri
+  da je prolaz dostižan; `enterShapes()`/`updateShapes()` vode bonus deo;
+  maska u obliku tela se sastavlja na zasebnom platnu pa se primeni jednom
+  (ako se crta direktno sa `destination-in`, svaki potez obriše prethodni).
+- `js/posematch.js` — poređenje poze po položaju zglobova (koristi bonus deo v2).
 - `js/game.js` — trka: pseudo-3D staza (projekcija `1/(1+d*k)`), prepreke, kugle.
   Razmaci između prepreka se računaju u **sekundama** (`brzina * gapSec`), ne u metrima,
   da povećanje brzine ne pojede vreme za reakciju.
@@ -207,4 +242,4 @@ slučajeva, a pogrešan pokret u 1%.
   `PoseTracker.attachStream()`, pa sve ostalo (model, sve igre) radi bez izmena.
 - `js/audio.js` — svi zvuci su sintetizovani (WebAudio), nema audio fajlova.
 
-Debug iz konzole: `KA.game` (trka), `NINJA.game`, `SHOOT.game`, `WALL.game`, `DANCE.game`.
+Debug iz konzole: `KA.game` (trka), `KA2.game` (trka v2), `NINJA.game`, `SHOOT.game`, `WALL.game`, `DANCE.game`.

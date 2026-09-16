@@ -181,6 +181,15 @@ export class PoseAnalyzer {
   constructor() { this.reset(); }
 
   reset() {
+    // Podesavanja osetljivosti. Podrazumevano = ponasanje prve verzije igre;
+    // v2 ih menja (vidi js/main2.js) jer plitak i spor cucanj nije bio detektovan.
+    this.tune = this.tune || {
+      jumpOn: 0.18, jumpOff: 0.08,
+      crouchOn: 0.45, crouchOff: 0.26,
+      adapt: 0.35,        // brzina prilagodjavanja osnove
+      adaptGate: 0,       // 0 = uvek prilagodjava; >0 = samo dok si blizu osnove
+      graceMs: 260        // koliko dugo posle pokreta jos vazi za sudar
+    };
     this.cal = null;
     this.sHip = null; this.sSho = null;
     this.jump = false; this.crouch = false;
@@ -288,12 +297,13 @@ export class PoseAnalyzer {
       const drop = (this.sSho - this.cal.shoY) / unit;   // + kada ramena padaju
       out.rise = rise; out.drop = drop;
 
+      const T = this.tune;
       // SKOK (histereza)
-      if (!this.jump && rise > 0.18) { this.jump = true; out.jumpStart = true; }
-      else if (this.jump && rise < 0.08) { this.jump = false; }
+      if (!this.jump && rise > T.jumpOn) { this.jump = true; out.jumpStart = true; }
+      else if (this.jump && rise < T.jumpOff) { this.jump = false; }
       // ČUČANJ (histereza) - skok ima prednost
-      if (!this.crouch && drop > 0.45 && rise < 0.05) { this.crouch = true; out.crouchStart = true; }
-      else if (this.crouch && drop < 0.26) { this.crouch = false; }
+      if (!this.crouch && drop > T.crouchOn && rise < 0.05) { this.crouch = true; out.crouchStart = true; }
+      else if (this.crouch && drop < T.crouchOff) { this.crouch = false; }
       if (this.jump) this.crouch = false;
 
       out.jump = this.jump;
@@ -309,8 +319,12 @@ export class PoseAnalyzer {
       this.x += (target - this.x) * Math.min(1, dt * 14);
 
       // Spora adaptacija osnove dok mirujemo (hod napred/nazad ne kvari kalibraciju).
-      if (!this.jump && !this.crouch) {
-        const k = Math.min(1, dt * 0.35);
+      // Sa adaptGate > 0 osnova se NE pomera dok si sagnut ili podignut - inace
+      // spor cucanj "iscuri" i nikad ne predje prag.
+      const blizuOsnove = T.adaptGate <= 0 ||
+        (Math.abs(drop) < T.adaptGate && Math.abs(rise) < T.adaptGate);
+      if (!this.jump && !this.crouch && blizuOsnove) {
+        const k = Math.min(1, dt * T.adapt);
         this.cal.hipY += (m.hipY - this.cal.hipY) * k;
         this.cal.shoY += (m.shoY - this.cal.shoY) * k;
         this.cal.torso += (m.torso - this.cal.torso) * k;
@@ -339,8 +353,9 @@ export class PoseAnalyzer {
     if (!out.present) this.lostT += dt;
     out.lost = this.lostT;
     out.x = this.x;
-    out.jumpRecent = out.jump || (now - this.lastJump) < 260;
-    out.crouchRecent = out.crouch || (now - this.lastCrouch) < 260;
+    const grace = (this.tune && this.tune.graceMs) || 260;
+    out.jumpRecent = out.jump || (now - this.lastJump) < grace;
+    out.crouchRecent = out.crouch || (now - this.lastCrouch) < grace;
     return out;
   }
 }

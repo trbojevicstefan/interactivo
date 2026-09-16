@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Kinnect Adventure</title>
+<title>Kinnect Adventure v2</title>
 <link rel="stylesheet" href="css/style.css" />
 <link rel="stylesheet" href="css/phone.css" />
 </head>
@@ -15,7 +15,7 @@
   <!-- HUD -->
   <div id="hud" class="hidden">
     <div class="hud-box hud-left">
-      <div id="lives" class="lives"></div>
+      <div id="lives" class="lives v2"></div>
       <div id="biome" class="biome">ŠUMA</div>
     </div>
     <div class="hud-box hud-center">
@@ -37,14 +37,16 @@
   <!-- EKRANI -->
   <section class="screen" id="screen-intro">
     <div class="panel">
-      <h1 class="logo">KINNECT<span>ADVENTURE</span></h1>
-      <p class="tag">Ti si džojstik. Stani ispred kamere i kreni.</p>
+      <h1 class="logo">KINNECT<span>ADVENTURE v2</span></h1>
+      <p class="tag">Doterana verzija trke: više života, bonus deo sa oblicima i jasnija slika.</p>
 
       <div class="moves">
         <div class="move"><div class="ico">⤒</div><b>SKOK</b><span>Skoči na mesto da preskočiš prepreku</span></div>
         <div class="move"><div class="ico">⤓</div><b>ČUČANJ</b><span>Čučni ili se sagni ispod grede</span></div>
         <div class="move"><div class="ico">⇄</div><b>KORAK</b><span>Zakorači levo/desno da izbegneš zid</span></div>
         <div class="move"><div class="ico">✋</div><b>RUKE</b><span>Hvataj energetske kugle rukama</span></div>
+        <div class="move"><div class="ico">❤</div><b>5 ŽIVOTA</b><span>I novi život na svakih 1000 m</span></div>
+        <div class="move"><div class="ico">⭐</div><b>BONUS</b><span>Na svakih 800 m praviš zadate oblike telom</span></div>
       </div>
 
       <div class="btns">
@@ -58,7 +60,7 @@
         <a href="shooter.html" class="btn ghost" style="display:inline-block;text-decoration:none">🎯 DRON NAPAD</a>
         <a href="wall.html" class="btn ghost" style="display:inline-block;text-decoration:none">🧍 PROĐI KROZ ZID</a>
         <a href="dance.html" class="btn ghost" style="display:inline-block;text-decoration:none">✨ PLESNI IZAZOV</a>
-        <a href="adventure2.html" class="btn ghost" style="display:inline-block;text-decoration:none">🚀 TRKA v2 (doterana)</a>
+        <a href="index.html" class="btn ghost" style="display:inline-block;text-decoration:none">↩ PRVA VERZIJA TRKE</a>
       </div>
 
       <p class="fine" id="intro-note">
@@ -117,6 +119,6 @@
   <div id="status"></div>
   <div id="toast"></div>
 </div>
-<script type="module" src="js/main.js"></script>
+<script type="module" src="js/main2.js"></script>
 </body>
 </html>

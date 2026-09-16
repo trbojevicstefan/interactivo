@@ -105,3 +105,7 @@ kbd{display:inline-block;padding:1px 6px;margin:0 2px;border-radius:5px;border:1
   .score{font-size:30px}.dist{font-size:20px}
   #hud{padding:10px 12px}
 }
+
+/* v2: kad ima vise od sest zivota prikazuje se "♥ xN" */
+.lives .mult{font-size:17px;font-weight:900;color:var(--bad);margin-left:4px;
+  text-shadow:0 0 12px rgba(255,77,94,.7);vertical-align:2px}
