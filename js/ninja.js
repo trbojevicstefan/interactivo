@@ -154,25 +154,6 @@ class NinjaGame {
     this.spawnT = gap * rand(0.85, 1.2);
   }
 
-  /* ---------- kamera sa telefona ---------- */
-let phoneStream = null;
-const btnPhone = document.getElementById('btn-phone');
-if (btnPhone) btnPhone.addEventListener('click', async () => {
-  btnPhone.disabled = true;
-  try {
-    phoneStream = await requestPhoneCam(s => {
-      phoneStream = s;
-      if (tracker.video) tracker.video.srcObject = s;   // telefon se ponovo javio
-    });
-    btnPhone.textContent = '✅ TELEFON POVEZAN';
-    btnPhone.classList.add('linked');
-    toast('TELEFON POVEZAN — sada pokreni igru');
-  } catch (e) {
-    console.warn('telefon:', e);
-  }
-  btnPhone.disabled = false;
-});
-
 /* ---------- petlja ---------- */
   update(dt, blades, now) {
     this.t += dt;
@@ -717,6 +698,25 @@ function updateHud() {
 }
 
 /* ---------- petlja ---------- */
+/* ---------- kamera sa telefona ---------- */
+let phoneStream = null;
+const btnPhone = document.getElementById('btn-phone');
+if (btnPhone) btnPhone.addEventListener('click', async () => {
+  btnPhone.disabled = true;
+  try {
+    phoneStream = await requestPhoneCam(s => {
+      phoneStream = s;
+      if (tracker.video) tracker.video.srcObject = s;   // telefon se ponovo javio
+    });
+    btnPhone.textContent = '✅ TELEFON POVEZAN';
+    btnPhone.classList.add('linked');
+    toast('TELEFON POVEZAN — sada pokreni igru');
+  } catch (e) {
+    console.warn('telefon:', e);
+  }
+  btnPhone.disabled = false;
+});
+
 function frame(now) {
   requestAnimationFrame(frame);
   const dt = Math.min(0.05, Math.max(0.001, (now - last) / 1000));
