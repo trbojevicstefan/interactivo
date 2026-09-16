@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+<title>Telefon kao kamera — Kinnect Adventure</title>
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/phone.css" />
+<style>html,body{height:auto;min-height:100%;overflow:auto}</style>
+</head>
+<body class="phonepage">
+<div id="wrap">
+  <header>
+    <h1>TELEFON <span>KAO KAMERA</span></h1>
+    <p id="lead">Ovaj telefon postaje kamera za igru na računaru.</p>
+  </header>
+
+  <div id="preview-box">
+    <video id="preview" playsinline muted autoplay></video>
+    <div id="badge" class="off">NIJE POVEZANO</div>
+    <div id="rotate" class="hidden">↻  OKRENI TELEFON VODORAVNO</div>
+  </div>
+
+  <div id="controls">
+    <label id="code-row">
+      <span>Kod sa računara</span>
+      <input id="code" type="text" inputmode="latin" autocapitalize="off" autocomplete="off"
+             spellcheck="false" maxlength="8" placeholder="npr. k3m9qp" />
+    </label>
+
+    <button id="go" class="btn primary">POŠALJI KAMERU</button>
+    <button id="flip" class="btn ghost">Prednja / zadnja kamera</button>
+
+    <p id="status">Unesi kod i pritisni dugme.</p>
+
+    <ol id="help">
+      <li>Na računaru otvori igru i klikni <b>KAMERA SA TELEFONA</b>.</li>
+      <li>Skeniraj QR kod ili ovde ukucaj šestoslovni kod.</li>
+      <li>Nasloni telefon tako da te vidi <b>celog, bar do kolena</b>, i ostavi ga.</li>
+      <li>Stani ispred telefona i igraj — gledaj u ekran računara.</li>
+    </ol>
+
+    <p id="note">Video ide direktno sa telefona na računar. Ako su na istoj mreži, ne izlazi iz nje.</p>
+  </div>
+</div>
+<script type="module" src="js/phone.js"></script>
+</body>
+</html>

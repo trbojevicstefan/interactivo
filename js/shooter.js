@@ -3,6 +3,7 @@
 
 import { Sfx } from './audio.js';
 import { PoseTracker, LM, BONES } from './pose.js';
+import { requestPhoneCam } from './phonecam.js';
 
 const $ = id => document.getElementById(id);
 const clamp = (v, a, b) => v < a ? a : (v > b ? b : v);
@@ -157,7 +158,26 @@ class Shooter {
     });
   }
 
-  /* ---------- petlja ---------- */
+  /* ---------- kamera sa telefona ---------- */
+let phoneStream = null;
+const btnPhone = document.getElementById('btn-phone');
+if (btnPhone) btnPhone.addEventListener('click', async () => {
+  btnPhone.disabled = true;
+  try {
+    phoneStream = await requestPhoneCam(s => {
+      phoneStream = s;
+      if (tracker.video) tracker.video.srcObject = s;   // telefon se ponovo javio
+    });
+    btnPhone.textContent = '✅ TELEFON POVEZAN';
+    btnPhone.classList.add('linked');
+    toast('TELEFON POVEZAN — sada pokreni igru');
+  } catch (e) {
+    console.warn('telefon:', e);
+  }
+  btnPhone.disabled = false;
+});
+
+/* ---------- petlja ---------- */
   update(dt, guns, now) {
     this.t += dt;
     this.shake = Math.max(0, this.shake - dt * 2.6);
@@ -707,7 +727,8 @@ async function startWithCamera() {
   show('screen-loading'); state = 'loading';
   $('load-msg').textContent = 'Tražim dozvolu za kameru';
   try {
-    await tracker.startCamera(video);
+    if (phoneStream) await tracker.attachStream(video, phoneStream);
+    else await tracker.startCamera(video);
   } catch (e) {
     console.error(e);
     $('load-title').textContent = 'KAMERA NIJE DOSTUPNA';

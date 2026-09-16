@@ -1,6 +1,7 @@
 // Spajanje svega: ekrani, kalibracija, petlja igre.
 import { Sfx } from './audio.js';
 import { PoseTracker, PoseAnalyzer } from './pose.js';
+import { requestPhoneCam } from './phonecam.js';
 import { Game } from './game.js';
 
 const $ = id => document.getElementById(id);
@@ -88,7 +89,8 @@ async function startWithCamera() {
   $('load-title').textContent = 'UČITAVAM...';
   $('load-msg').textContent = 'Tražim dozvolu za kameru';
   try {
-    await tracker.startCamera(video);
+    if (phoneStream) await tracker.attachStream(video, phoneStream);
+    else await tracker.startCamera(video);
   } catch (e) {
     console.error(e);
     $('load-title').textContent = 'KAMERA NIJE DOSTUPNA';
@@ -173,6 +175,25 @@ function mergeKeys(input, now) {
 }
 
 /* ---------------- glavna petlja ---------------- */
+/* ---------- kamera sa telefona ---------- */
+let phoneStream = null;
+const btnPhone = document.getElementById('btn-phone');
+if (btnPhone) btnPhone.addEventListener('click', async () => {
+  btnPhone.disabled = true;
+  try {
+    phoneStream = await requestPhoneCam(s => {
+      phoneStream = s;
+      if (tracker.video) tracker.video.srcObject = s;   // telefon se ponovo javio
+    });
+    btnPhone.textContent = '✅ TELEFON POVEZAN';
+    btnPhone.classList.add('linked');
+    toast('TELEFON POVEZAN — sada pokreni igru');
+  } catch (e) {
+    console.warn('telefon:', e);
+  }
+  btnPhone.disabled = false;
+});
+
 function frame(now) {
   requestAnimationFrame(frame);
   const dt = Math.min(0.05, Math.max(0.001, (now - last) / 1000));

@@ -35,20 +35,27 @@ export class PoseTracker {
   }
 
   async startCamera(videoEl) {
-    this.video = videoEl;
-    this.stream = await navigator.mediaDevices.getUserMedia({
+    const stream = await navigator.mediaDevices.getUserMedia({
       video: { width: { ideal: 960 }, height: { ideal: 540 }, facingMode: 'user', frameRate: { ideal: 30 } },
       audio: false
     });
-    videoEl.srcObject = this.stream;
-    await videoEl.play();
+    return this.attachStream(videoEl, stream);
+  }
+
+  // Zakači bilo koji MediaStream (lokalna kamera ili video sa telefona).
+  async attachStream(videoEl, stream) {
+    this.video = videoEl;
+    this.stream = stream;
+    videoEl.srcObject = stream;
+    await videoEl.play().catch(() => {});
     if (!videoEl.videoWidth) {
       await new Promise(res => {
         const done = () => { videoEl.removeEventListener('loadeddata', done); res(); };
         videoEl.addEventListener('loadeddata', done);
-        setTimeout(res, 2500);
+        setTimeout(res, 4000);
       });
     }
+    this.lastTs = -1;
     return true;
   }
 

@@ -40,6 +40,25 @@ Iz glavnog menija se prelazi na ostale igre, a svaka ima linkove ka ostalima.
 Prvo pokretanje skine model za prepoznavanje tela (~5 MB, sa `cdn.jsdelivr.net` i
 `storage.googleapis.com`). Posle toga pregledač ga kešira i sve igre ga dele.
 
+## Nemaš kameru na računaru? Koristi telefon
+
+U svakoj igri postoji dugme **📱 KAMERA SA TELEFONA**. Klikom se otvori QR kod i
+šestoslovni kod. Skeniraš QR telefonom (ili otvoriš `phone.html` i ukucaš kod),
+pritisneš **POŠALJI KAMERU** — i telefon postaje kamera za igru na računaru.
+
+- Video ide **direktno sa telefona na računar** (WebRTC). Ako su na istoj mreži,
+  slika ne izlazi iz nje. Javni PeerJS broker se koristi samo za početno rukovanje
+  (razmenu adresa), sam video ne prolazi kroz njega.
+- Radi i sa objavljenog linka — telefon otvara `https://...github.io/interactivo/phone.html`,
+  što je siguran kontekst, pa kamera radi bez ikakvog podešavanja.
+- Telefon drži **vodoravno** (landscape) i nasloni ga tako da te vidi bar do kolena.
+  Ako je uspravan, strana sama upozori da ga okreneš.
+- Ekran telefona se drži budnim (Wake Lock) dok šalje.
+
+> Zašto ne „samo otvori adresu servera na LAN-u": pregledači ne daju pristup kameri
+> na `http://192.168.x.x` jer to nije siguran kontekst. Zato telefon otvara HTTPS
+> stranu, a video putuje direktno preko WebRTC-a.
+
 ### Postavljanje kamere
 - Stani **2–3 metra** od kamere, tako da te se vidi bar do kolena (za trku), odnosno
   cela gornja polovina tela sa raširenim rukama (za ninju i pucačinu). Za zid je najbolje
@@ -182,6 +201,10 @@ slučajeva, a pogrešan pokret u 1%.
 - `js/dance.js` — ples: mali sekvencer koji zakazuje note unapred preko `AudioContext`
   sata, „senka" pokreta preko igrača, prsten ritma, trake za rukama i ocenjivanje po
   udaljenosti zglobova (Gausova kriva, `SIG = 0.5` dužine trupa).
+- `js/phonecam.js` + `phone.html` / `js/phone.js` — kamera sa telefona: PC otvori
+  PeerJS vezu sa nasumičnim kodom i prikaže QR; telefon uzme kameru i pozove taj kod.
+  Dobijeni `MediaStream` se zakači na isti `<video>` element preko
+  `PoseTracker.attachStream()`, pa sve ostalo (model, sve igre) radi bez izmena.
 - `js/audio.js` — svi zvuci su sintetizovani (WebAudio), nema audio fajlova.
 
 Debug iz konzole: `KA.game` (trka), `NINJA.game`, `SHOOT.game`, `WALL.game`, `DANCE.game`.
