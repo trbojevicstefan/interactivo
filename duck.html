@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Lov na Patke — Kinnect Adventure</title>
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/duck.css" />
+</head>
+<body class="duck">
+<div id="stage">
+  <video id="cam" playsinline muted autoplay></video>
+  <canvas id="game"></canvas>
+
+  <div id="hud" class="hidden">
+    <div class="hud-box hud-left">
+      <div id="meci" class="meci"></div>
+      <div id="runda" class="biome">RUNDA 1</div>
+    </div>
+    <div class="hud-box hud-center">
+      <div id="poeni" class="score">0</div>
+      <div id="red" class="red"></div>
+    </div>
+    <div class="hud-box hud-right">
+      <div class="dist"><span id="best">0</span></div>
+      <div class="speed">najbolje</div>
+      <div class="speed kvota">kvota <b id="kvota">0/5</b></div>
+      <div class="mic"><i id="mic-bar"></i></div>
+    </div>
+  </div>
+
+  <div id="banner"></div>
+
+  <section class="screen" id="screen-intro">
+    <div class="panel">
+      <h1 class="logo hunt">LOV NA<span>PATKE</span></h1>
+      <p class="tag">Ciljaš kažiprstom, pucaš pucketanjem prstima. Kamera gleda tvoju šaku, mikrofon sluša prasak.</p>
+
+      <div class="moves">
+        <div class="move"><div class="ico">☝</div><b>NIŠANI</b><span>Ispruži kažiprst — nišan ide tamo gde pokazuješ</span></div>
+        <div class="move"><div class="ico">🫰</div><b>PUCAJ</b><span>Pucketni prstima; mikrofon prepoznaje prasak</span></div>
+        <div class="move"><div class="ico">🦆</div><b>10 PATAKA</b><span>Po rundi, tri metka po naletu</span></div>
+        <div class="move"><div class="ico">🐕</div><b>PAS</b><span>Ako ne ispuniš kvotu, smejaće ti se</span></div>
+      </div>
+
+      <div class="btns">
+        <button id="btn-start" class="btn primary">KAMERA + MIKROFON</button>
+        <button id="btn-nomic" class="btn ghost">Prst, ali bez mikrofona</button>
+        <button id="btn-mouse" class="btn ghost">Bez kamere (miš)</button>
+      </div>
+
+      <p class="fine">Sve se obrađuje lokalno u pregledaču — ni slika ni zvuk ne izlaze sa računara.</p>
+      <p class="fine keys">
+        <a href="index.html" class="link">← trka</a> ·
+        <a href="adventure2.html" class="link">🚀 trka v2</a> ·
+        <a href="ninja.html" class="link">🍉 voće ninja</a> ·
+        <a href="shooter.html" class="link">🎯 dron napad</a> ·
+        <a href="wall.html" class="link">🧍 prođi kroz zid</a> ·
+        <a href="dance.html" class="link">✨ plesni izazov</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="screen hidden" id="screen-loading">
+    <div class="panel slim">
+      <div class="spinner"></div>
+      <h2 id="load-title">UČITAVAM...</h2>
+      <p class="tag" id="load-msg">Pripremam kameru</p>
+    </div>
+  </section>
+
+  <section class="screen hidden transparent" id="screen-calib">
+    <div class="panel slim">
+      <h2>PROBA</h2>
+      <p class="tag">Nišan prati vrh kažiprsta. Probaj da pucketaš da vidiš da li te mikrofon čuje.</p>
+      <p id="calib-hand" class="proba">Podigni šaku ispred kamere</p>
+      <div id="calib-mic">
+        <p id="calib-test" class="proba">Pucketni prstima...</p>
+        <label class="sens-row">
+          <span>Osetljivost mikrofona</span>
+          <input id="sens" type="range" min="10" max="95" value="50" />
+          <b id="sens-val">50%</b>
+        </label>
+        <p class="fine">Ako okida samo od sebe — smanji. Ako ne čuje — povećaj. <kbd>K</kbd> ponovo meri šum.</p>
+      </div>
+      <button id="btn-go" class="btn primary" disabled>Pripremam...</button>
+    </div>
+  </section>
+
+  <section class="screen hidden" id="screen-over">
+    <div class="panel">
+      <h2 class="over">KRAJ LOVA</h2>
+      <div class="result">
+        <div><b id="r-poeni">0</b><span>poena</span></div>
+        <div><b id="r-runda">1</b><span>runda</span></div>
+        <div><b id="r-best">0</b><span>najbolje</span></div>
+      </div>
+      <div class="btns">
+        <button id="btn-again" class="btn primary">IGRAJ PONOVO</button>
+        <button id="btn-menu" class="btn ghost">Meni</button>
+      </div>
+    </div>
+  </section>
+
+  <div id="status"></div>
+  <div id="toast"></div>
+</div>
+<script type="module" src="js/duck-main.js"></script>
+</body>
+</html>

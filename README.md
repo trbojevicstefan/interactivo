@@ -1,4 +1,4 @@
-# Kinnect Adventure — šest igara na pokret
+# Kinnect Adventure — sedam igara na pokret
 
 ### ▶ Igraj odmah: **https://trbojevicstefan.github.io/interactivo/**
 
@@ -18,6 +18,7 @@ ne napušta računar.
 | **Dron Napad** (pucačina) | `shooter.html` | Ruke su nišani — obaraš dronove, ne diraš ptice |
 | **Prođi Kroz Zid** | `wall.html` | Nameštaš telo u pozu isečenu u zidu koji juri ka tebi |
 | **Plesni Izazov** | `dance.html` | Ponavljaš pokrete u ritmu muzike, skupljaš zvezdice |
+| **Lov na Patke** | `duck.html` | Ciljaš kažiprstom, pucaš **pucketanjem prstima** |
 
 Svaka igra je zasebna stranica sa svojim fajlom u `js/`. Dele samo praćenje tela
 (`js/pose.js`) i zvuk (`js/audio.js`), pa izmena jedne igre ne dira ostale.
@@ -210,6 +211,36 @@ Ocenjivanje je drugačije nego kod zida: tamo se pita „da li si stao u obris",
 glava), normalizovan na dužinu trupa. Izmereno: tačan pokret dobija SAVRŠENO u 99%
 slučajeva, a pogrešan pokret u 1%.
 
+## 6. Lov na Patke
+
+Kao ona stara igra sa patkama, ali bez pištolja: **ciljaš kažiprstom**, a **pucaš
+pucketanjem prstima**. Kamera gleda šaku, mikrofon sluša prasak. Sebe ne vidiš —
+na ekranu su samo nišan i beli obris šake, kao potvrda da te praćenje vidi.
+
+- 10 pataka po rundi, tri metka po naletu, kvota raste sa rundom.
+- Tri vrste patke (500 / 1000 / 1500 poena), brže i češće kako rundе idu.
+- Sve pogođene u rundi = +10000. Ispod kvote = pas ti se smeje i kraj.
+- Tri načina igre: **kamera + mikrofon** (pravi), **prst bez mikrofona** (klik),
+  i **bez kamere** (miš) za one koji nemaju opremu.
+
+### Kako se prepoznaje pucketanje
+
+Pucketanje je prasak od 20–30 ms. Da se ne bi promašio kad igra padne u FPS,
+detekcija **ne radi u petlji crtanja nego u audio niti** (`AudioWorklet`), na svakom
+bloku od 128 uzoraka (~2.7 ms).
+
+Postupak: dvostruka razlika susednih uzoraka (naglašava visoke i prelaze) → brza i
+spora envelopa → kad brza naglo pretekne sporu, to je kandidat → **potvrda posle
+45 ms: energija mora da padne ispod trećine vrha**. Pucketanje se ugasi, govor i
+muzika se nastavljaju — tako se odbacuje okidanje na početak reči ili takta.
+
+Izmereno sintetičkim zvukom: govor i muzika (sa bas-bubnjem) kroz 11 s daju
+**0 lažnih okidanja**, a hvata i vrlo tiho pucketanje (amplituda 0.08).
+Kašnjenje je 50 ms — koliko traje potvrda.
+
+Pre igre ide proba: izmeri se pozadinski šum i imaš klizač za osetljivost
+(<kbd>K</kbd> ponovo meri šum).
+
 ---
 
 ## Kako radi
@@ -245,6 +276,11 @@ slučajeva, a pogrešan pokret u 1%.
   PeerJS vezu sa nasumičnim kodom i prikaže QR; telefon uzme kameru i pozove taj kod.
   Dobijeni `MediaStream` se zakači na isti `<video>` element preko
   `PoseTracker.attachStream()`, pa sve ostalo (model, sve igre) radi bez izmena.
+- `js/hands.js` — praćenje šake (MediaPipe Hand Landmarker, 21 tačka) i
+  `aimFromHand()` koja iz kažiprsta računa gde se nišani.
+- `js/snap.js` + `js/snap-worklet.js` — pucketanje kao okidač; detekcija u audio niti,
+  igra samo pokupi red okinutih pucnjeva sa `take()`.
+- `js/duck.js` + `js/duck-main.js` — Lov na patke.
 - `js/audio.js` — svi zvuci su sintetizovani (WebAudio), nema audio fajlova.
 
-Debug iz konzole: `KA.game` (trka), `KA2.game` (trka v2), `NINJA.game`, `SHOOT.game`, `WALL.game`, `DANCE.game`.
+Debug iz konzole: `KA.game` (trka), `KA2.game` (trka v2), `NINJA.game`, `SHOOT.game`, `WALL.game`, `DANCE.game`, `DUCK.game`.

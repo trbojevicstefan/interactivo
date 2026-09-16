@@ -1,0 +1,54 @@
+/* Dodaci samo za Lov na patke. */
+.logo.hunt{
+  background:linear-gradient(90deg,#ffd54f,#ff8a3d 50%,#e8503a);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 26px rgba(255,160,60,.4))
+}
+.logo.hunt span{-webkit-text-fill-color:var(--ink)}
+body.duck{cursor:none}
+body.duck .screen{cursor:auto}
+body.duck .btn.primary{background:linear-gradient(90deg,#ffd54f,#ff8a3d);color:#2a1202}
+body.duck .move .ico{color:#ffd54f;text-shadow:0 0 18px rgba(255,213,79,.5);font-size:28px}
+body.duck .hud-box{border-color:rgba(255,213,79,.24)}
+body.duck .biome{color:#ffd54f}
+body.duck .score{text-shadow:0 0 20px rgba(255,213,79,.5)}
+
+.meci{font-size:22px;letter-spacing:5px;line-height:1;color:#ffd54f}
+.meci i{font-style:normal;text-shadow:0 0 10px rgba(255,213,79,.8)}
+.meci i.off{color:rgba(255,255,255,.14);text-shadow:none}
+.red{margin-top:4px;font-size:13px;letter-spacing:3px;line-height:1}
+.red i{font-style:normal;color:rgba(255,255,255,.18)}
+.red i.hit{color:#4dffa6;text-shadow:0 0 10px rgba(77,255,166,.8)}
+.red i.miss{color:#ff5a5a}
+.mic{margin-top:6px;height:5px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden;width:110px;margin-left:auto}
+.mic i{display:block;height:100%;width:0%;background:linear-gradient(90deg,#4dffa6,#ffd54f);transition:width .08s}
+
+.proba{margin-top:12px;font-size:13.5px;opacity:.75}
+.proba.ok{color:#4dffa6;opacity:1;font-weight:700}
+.sens-row{display:flex;align-items:center;gap:10px;margin:14px 0 4px;font-size:11px;letter-spacing:2px;opacity:.8}
+.sens-row input{flex:1;accent-color:#ffd54f}
+.sens-row b{color:#ffd54f;min-width:38px;text-align:right}
+#btn-go{margin-top:16px}
+#btn-go:disabled{opacity:.5;cursor:default}
+
+.link{color:var(--neon2);text-decoration:none;border-bottom:1px dotted currentColor}
+.link:hover{color:#fff}
+#banner{
+  position:absolute;left:50%;top:22%;transform:translate(-50%,0) scale(.7);
+  font-size:clamp(24px,4.8vw,48px);font-weight:900;letter-spacing:6px;text-align:center;
+  opacity:0;pointer-events:none;z-index:4;white-space:nowrap;
+  color:#ffd54f;text-shadow:0 0 30px rgba(255,160,0,.8),0 4px 16px rgba(0,0,0,.7)
+}
+#banner.bad{color:#ff6b7a;text-shadow:0 0 30px rgba(255,60,80,.8),0 4px 16px rgba(0,0,0,.7)}
+#banner.show{animation:pop 1.6s ease-out forwards}
+#banner small{display:block;font-size:.42em;letter-spacing:4px;opacity:.9;margin-top:8px;color:#fff}
+@keyframes pop{
+  0%{opacity:0;transform:translate(-50%,10px) scale(.7)}
+  12%{opacity:1;transform:translate(-50%,0) scale(1.06)}
+  22%{transform:translate(-50%,0) scale(1)}
+  85%{opacity:1}
+  100%{opacity:0;transform:translate(-50%,-20px) scale(1)}
+}
+
+.speed.kvota{margin-top:2px}
+.speed.kvota b{color:#ffd54f}
